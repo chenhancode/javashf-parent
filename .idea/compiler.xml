@@ -9,13 +9,9 @@
         <module name="common-util" />
         <module name="model" />
         <module name="web-admin" />
+        <module name="service-api" />
+        <module name="service-acl" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="service" target="1.8" />
-      <module name="service-acl" target="1.8" />
-      <module name="service-api" target="1.8" />
-      <module name="web" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
