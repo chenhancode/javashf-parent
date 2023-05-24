@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.DictDao">
+
+    <select id="findZnodes" resultType="com.atguigu.entity.Dict">
+        select * from hse_dict where parent_id=#{id}
+    </select>
+
+    <select id="countIsParent" resultType="int">
+        select count(*) from hse_dict where parent_id=#{id}
+    </select>
+    <select id="findListByDictCode" resultType="com.atguigu.entity.Dict">
+        select * from hse_dict where dict_code = #{dictCode}
+    </select>
+    <select id="getNameById" resultType="java.lang.String">
+        select name from hse_dict where id=#{areaId}
+    </select>
+</mapper>
