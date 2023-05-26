@@ -49,11 +49,6 @@ public class HouseController extends BaseController {
         House house = houseService.getById(id);
         Community community = communityService.getById(house.getCommunityId());
 
-        List<HouseImage> houseImage1List = new ArrayList<>();
-        List<HouseImage> houseImage2List = new ArrayList<>();
-        List<HouseBroker> houseBrokerList = new ArrayList<>();
-        List<HouseUser> houseUserList = new ArrayList<>();
-
         modelMap.addAttribute("house",house);
         modelMap.addAttribute("community",community);
         modelMap.addAttribute("houseImage1List",houseImageService.findList(id,1));

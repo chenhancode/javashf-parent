@@ -3,16 +3,22 @@ package com.atguigu.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.BaseController;
 import com.atguigu.entity.Admin;
+import com.atguigu.entity.HouseImage;
 import com.atguigu.service.AdminService;
+import com.atguigu.util.QiniuUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,8 +32,32 @@ public class AdminController extends BaseController {
     private final static String PAGE_EDIT = "admin/edit";
     private final static String PAGE_SUCCESS = "common/successPage";
 
+    private final static String PAGE_UPLOED_SHOW = "admin/upload";
+
     @Reference
     private AdminService adminService;
+
+    @RequestMapping("/upload/{id}")
+    public String upload(@PathVariable Long id, @RequestParam("file")MultipartFile file) throws IOException {
+        // uuid
+        String newFileName = UUID.randomUUID().toString();
+        // 一张张上传
+        QiniuUtils.upload2Qiniu(file.getBytes(),newFileName);
+        // 拼接图片地址
+        String url = "http://rv7cilgg1.hb-bkt.clouddn.com/" + newFileName;
+
+        Admin admin = new Admin();
+        admin.setId(id);
+        admin.setHeadUrl(url);
+        adminService.update(admin);
+        return PAGE_SUCCESS;
+    }
+
+    @RequestMapping("/uploadShow/{id}")
+    public String uploadShow(@PathVariable Long id,ModelMap modelMap){
+        modelMap.addAttribute("id",id);
+        return PAGE_UPLOED_SHOW;
+    }
 
 //    opt.confirm('/admin/delete/'+id);
     @RequestMapping("/delete/{id}")

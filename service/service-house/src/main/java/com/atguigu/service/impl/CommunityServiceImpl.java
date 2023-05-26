@@ -6,7 +6,6 @@ import com.atguigu.base.BaseServiceImpl;
 import com.atguigu.dao.CommunityDao;
 import com.atguigu.dao.DictDao;
 import com.atguigu.entity.Community;
-import com.atguigu.entity.Dict;
 import com.atguigu.service.CommunityService;
 import com.atguigu.util.CastUtil;
 import com.github.pagehelper.Page;

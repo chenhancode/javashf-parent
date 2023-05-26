@@ -21,13 +21,13 @@ import java.io.InputStream;
  */
 public class QiniuUtils {
 
-    public  static String accessKey = "BrrMVEQCE6ijrnHX-gGDVVk3e0vY8mAQQEyB_Zzq";
-    public  static String secretKey = "uaJNMOUGSkZqb3xce-gv4Y-2f0f5_X5VQO-v4lL0";
-    public  static String bucket = "meinian888";
+    public  static String accessKey = "9iavpUg3EH6fPRzI0NXK1KtrYB2GBY7rQ29T4BIG";
+    public  static String secretKey = "3t9rBAD3p1UUtuoG3sanghyJyWqXVuY_FKa0jEz8";
+    public  static String bucket = "cd-java0222";
 
     public static void upload2Qiniu(String filePath,String fileName){
         //构造一个带指定Zone对象的配置类
-        Configuration cfg = new Configuration(Zone.zone2());
+        Configuration cfg = new Configuration(Zone.zone1());
         UploadManager uploadManager = new UploadManager(cfg);
         Auth auth = Auth.create(accessKey, secretKey);
         String upToken = auth.uploadToken(bucket);
@@ -48,7 +48,7 @@ public class QiniuUtils {
     //上传文件
     public static void upload2Qiniu(byte[] bytes, String fileName){
         //构造一个带指定Zone对象的配置类
-        Configuration cfg = new Configuration(Zone.zone2());
+        Configuration cfg = new Configuration(Zone.zone1());
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
 
@@ -76,7 +76,7 @@ public class QiniuUtils {
     //删除文件
     public static void deleteFileFromQiniu(String fileName){
         //构造一个带指定Zone对象的配置类
-        Configuration cfg = new Configuration(Zone.zone2());
+        Configuration cfg = new Configuration(Zone.zone1());
         String key = fileName;
         Auth auth = Auth.create(accessKey, secretKey);
         BucketManager bucketManager = new BucketManager(auth, cfg);

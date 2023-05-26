@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="Author" contect="http://www.webqin.net">
+  <title>尚好房</title>
+  <link rel="shortcut icon" href="./static/images/favicon.ico"/>
+  <link type="text/css" href="./static/css/css.css" rel="stylesheet"/>
+  <script type="text/javascript" src="./static/js/jquery.js"></script>
+  <script type="text/javascript" src="./static/js/js.js"></script>
+  <script src="./static/js/vue.js"></script>
+  <script src="./static/js/axios.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      //导航定位
+      $(".nav li:eq(1)").addClass("navCur");
+    })
+  </script>
+</head>
+
+<body>
+<div id="list">
+  <div class="header">
+    <div class="width1190">
+      <div class="fl">您好，欢迎来到尚好房！</div>
+      <div class="fr">
+        <a href="login.html">登录</a> |
+        <a href="register.html">注册</a> |
+        <a href="javascript:;">加入收藏</a> |
+        <a href="javascript:;">设为首页</a>
+      </div>
+      <div class="clears"></div>
+    </div><!--width1190/-->
+  </div>
+  <div class="list-nav">
+    <div class="width1190">
+      <div class="list"><h3>房源分类</h3></div><!--list/-->
+      <ul class="nav">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于我们</a></li>
+        <li><a href="contact.html">联系我们</a></li>
+        <div class="clears"></div>
+      </ul><!--nav/-->
+      <div class="clears"></div>
+    </div><!--width1190/-->
+  </div><!--list-nav/-->
+  <div class="banner" style="background:url(./static/images/ban.jpg) center center no-repeat;"></div>
+
+  <div class="content">
+    <div class="width1190">
+      <form action="#" method="get" class="pro-search">
+        <table>
+          <tr>
+            <th>房源区域：</th>
+            <td>
+              <div style="line-height: 30px;">
+                <a href="javascript:;">不限</a>
+                <a href="javascript:;" v-for="item in areaList" :key="item.id">{{ item.name }}</a>
+              </div>
+              <!--新增区域-->
+              <div style="font-size: 12px;border-top:#ccc 1px dotted;">
+                <a href="javascript:;" v-for="item in plateList" :key="item.id">{{ item.name }}</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>户型：</th>
+            <td>
+              <a href="javascript:;">不限</a>
+              <a href="javascript:;" v-for="item in houseTypeList" :key="item.id">{{ item.name }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>楼层：</th>
+            <td>
+              <a href="javascript:;" >不限</a>
+              <a href="javascript:;" v-for="item in floorList" :key="item.id">{{ item.name }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>建筑结构：</th>
+            <td>
+              <a href="javascript:;">不限</a>
+              <a href="javascript:;" v-for="item in buildStructureList" :key="item.id">{{ item.name }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>朝向：</th>
+            <td>
+              <a href="javascript:;">不限</a>
+              <a href="javascript:;" v-for="item in directionList" :key="item.id">{{ item.name }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>装修情况：</th>
+            <td>
+              <a href="javascript:;">不限</a>
+              <a href="javascript:;" v-for="item in decorationList" :key="item.id">{{ item.name }}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>房屋用途：</th>
+            <td>
+              <a href="javascript:;">不限</a>
+              <a href="javascript:;" v-for="item in houseUseList" :key="item.id">{{ item.name }}</a>
+            </td>
+          </tr>
+        </table>
+        <div class="paixu">
+          <strong>排序：</strong>
+          <a href="javascript:;" class="pai-cur">默认</a>
+          <a href="javascript:;">价格 &or;</a>
+          <a href="javascript:;">最新 &or;</a>
+        </div>
+      </form><!--pro-search/-->
+    </div><!--width1190/-->
+    <div class="width1190">
+      <div class="pro-left">
+        <dl>
+          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
+          <dd>
+            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
+            <div class="pro-wei">
+              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
+            </div>
+            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
+            <div class="pra-fa">发布时间：2020-12-03</div>
+          </dd>
+          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
+          <div class="clears"></div>
+        </dl>
+        <dl>
+          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
+          <dd>
+            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
+            <div class="pro-wei">
+              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
+            </div>
+            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
+            <div class="pra-fa">发布时间：2020-12-03</div>
+          </dd>
+          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
+          <div class="clears"></div>
+        </dl>
+        <dl>
+          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
+          <dd>
+            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
+            <div class="pro-wei">
+              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
+            </div>
+            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
+            <div class="pra-fa">发布时间：2020-12-03</div>
+          </dd>
+          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
+          <div class="clears"></div>
+        </dl>
+        <dl>
+          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
+          <dd>
+            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
+            <div class="pro-wei">
+              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
+            </div>
+            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
+            <div class="pra-fa">发布时间：2020-12-03</div>
+          </dd>
+          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
+          <div class="clears"></div>
+        </dl>
+        <dl>
+          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
+          <dd>
+            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
+            <div class="pro-wei">
+              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
+            </div>
+            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
+            <div class="pra-fa">发布时间：2020-12-03</div>
+          </dd>
+          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
+          <div class="clears"></div>
+        </dl>
+      </div><!--pro-left/-->
+
+      <div class="clears"></div>
+      <ul class="pages">
+        <!--<li>
+            <a href="#">首页</a>
+        </li>-->
+        <li>
+          <a href="#">上一页</a>
+        </li>
+        <li>
+          <a href="#">1</a>
+        </li>
+        <li class="page_active">
+          <a href="#">2</a>
+        </li>
+        <li>
+          <a href="#">3</a>
+        </li>
+        <li>
+          <a href="#">4</a>
+        </li>
+        <li>
+          <a href="#">5</a>
+        </li>
+        <li>
+          <span>...</span>
+        </li>
+        <li>
+          <a href="#">999</a>
+        </li>
+        <li>
+          <a href="#">下一页</a>
+        </li>
+        <!--<li>
+            <a href="#">尾页</a>
+        </li>-->
+      </ul>
+    </div><!--width1190/-->
+  </div><!--content/-->
+
+  <div class="footer">
+    <div class="width1190">
+      <div class="fl"><a href="index.html"><strong>尚好房</strong></a><a href="about.html">关于我们</a><a
+              href="contact.html">联系我们</a><a href="follow.html">个人中心</a></div>
+      <div class="fr">
+        <dl>
+          <dt><img src="./static/images/erweima.png" width="76" height="76"/></dt>
+          <dd>微信扫一扫<br/>房价点评，精彩发布</dd>
+        </dl>
+        <dl>
+          <dt><img src="./static/images/erweima.png" width="76" height="76"/></dt>
+          <dd>微信扫一扫<br/>房价点评，精彩发布</dd>
+        </dl>
+        <div class="clears"></div>
+      </div>
+      <div class="clears"></div>
+    </div><!--width1190/-->
+  </div><!--footer/-->
+  <div class="copy">Copyright@ 2020 尚好房 版权所有 沪ICP备1234567号-0&nbsp;&nbsp;&nbsp;&nbsp;技术支持：XXX</div>
+  <div class="bg100"></div>
+</div>
+<script>
+  new Vue({
+    el: '#list',
+
+    data: {
+      areaList: [],
+      plateList: [],
+      houseTypeList: [],
+      floorList: [],
+      buildStructureList: [],
+      directionList: [],
+      decorationList: [],
+      houseUseList: []
+    },
+
+    created () {
+      this.fetchDictData()
+    },
+
+    methods: {
+      fetchDictData(){
+
+        axios.get('/dict/findListByDictCode/beijing').then(response=> {
+          this.areaList = response.data.data
+        });
+        axios.get('/dict/findListByDictCode/houseType').then(response=> {
+          this.houseTypeList = response.data.data
+        });
+        axios.get('/dict/findListByDictCode/floor').then(response=>  {
+          this.floorList = response.data.data
+        });
+        axios.get('/dict/findListByDictCode/buildStructure').then(response=>  {
+          this.buildStructureList = response.data.data
+        });
+        axios.get('/dict/findListByDictCode/direction').then(response=>  {
+          this.directionList = response.data.data
+        });
+        axios.get('/dict/findListByDictCode/decoration').then(response=>  {
+          this.decorationList = response.data.data
+        });
+        axios.get('/dict/findListByDictCode/houseUse').then(response=>  {
+          console.log("箭头函数中的this")
+          console.log(this)
+          this.houseUseList = response.data.data
+        });
+        axios.get('/dict/findListByDictCode/beijing').then(function (response) {
+          console.log("普通方法中的this")
+          console.log(this)
+        });
+
+      }
+    }
+  })
+</script>
+</body>
+</html>

@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.atguigu.dao.AdminDao">
+    <select id="findAll" resultType="admin">
+        select * from  acl_admin where is_deleted = 0
+    </select>
 
 <!--    PageInfo<T> findPage(Map<String, Object> filters);
 concat : 表示连接函数
