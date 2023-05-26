@@ -54,12 +54,12 @@
             <th>房源区域：</th>
             <td>
               <div style="line-height: 30px;">
-                <a href="javascript:;">不限</a>
-                <a href="javascript:;" v-for="item in areaList" :key="item.id">{{ item.name }}</a>
+                <a href="javascript:;" @click="searchArea('')" :class="houseQueryVo.areaId=='' ? 'pro-cur' : ''">不限</a>
+                <a href="javascript:;" @click="searchArea(item.id)" :class="item.id==houseQueryVo.areaId ? 'pro-cur' : ''" v-for="item in areaList" :key="item.id">{{ item.name }}</a>
               </div>
               <!--新增区域-->
               <div style="font-size: 12px;border-top:#ccc 1px dotted;">
-                <a href="javascript:;" v-for="item in plateList" :key="item.id">{{ item.name }}</a>
+                <a href="javascript:;" :class="item.id==houseQueryVo.plateId ? 'pro-cur' : ''" v-for="item in plateList" :key="item.id">{{ item.name }}</a>
               </div>
             </td>
           </tr>
@@ -116,108 +116,33 @@
     </div><!--width1190/-->
     <div class="width1190">
       <div class="pro-left">
-        <dl>
-          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
+        <dl v-for="item in page.list" :key="item.id" >
+          <dt><a :href="'info.html?id='+item.id"><img :src="item.defaultImageUrl" width="286" height="188"/></a></dt>
           <dd>
-            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
+            <h3><a :href="'info.html?id='+item.id">{{ item.name }}</a></h3>
             <div class="pro-wei">
-              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
+              <img src="/static/images/weizhi.png" width="12" height="16"/> <strong class="red">{{ item.communityName }}</strong>
             </div>
-            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
-            <div class="pra-fa">发布时间：2020-12-03</div>
+            <div class="pro-fang">{{ item.buildArea }}平 {{ item.houseTypeName}} {{ item.floorName}} {{ item.directionName}}</div>
+            <div class="pra-fa"> 发布时间：{{ item.createTimeString }}</div>
           </dd>
-          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
+          <div class="price">¥ <strong>{{ item.totalPrice }}</strong><span class="font12">万元</span></div>
           <div class="clears"></div>
         </dl>
-        <dl>
-          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
-          <dd>
-            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
-            <div class="pro-wei">
-              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
-            </div>
-            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
-            <div class="pra-fa">发布时间：2020-12-03</div>
-          </dd>
-          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
-          <div class="clears"></div>
-        </dl>
-        <dl>
-          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
-          <dd>
-            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
-            <div class="pro-wei">
-              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
-            </div>
-            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
-            <div class="pra-fa">发布时间：2020-12-03</div>
-          </dd>
-          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
-          <div class="clears"></div>
-        </dl>
-        <dl>
-          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
-          <dd>
-            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
-            <div class="pro-wei">
-              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
-            </div>
-            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
-            <div class="pra-fa">发布时间：2020-12-03</div>
-          </dd>
-          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
-          <div class="clears"></div>
-        </dl>
-        <dl>
-          <dt><a href="info.html"><img src="./static/images/fang1.jpg" width="286" height="188"/></a></dt>
-          <dd>
-            <h3><a href="proinfo.html">中装一室一厅，楼层好，采光足，稀缺房源</a></h3>
-            <div class="pro-wei">
-              <img src="./static/images/weizhi.png" width="12" height="16"/> <strong class="red">智慧园</strong>
-            </div>
-            <div class="pro-fang">100.00平 两室 高楼层 普通装修</div>
-            <div class="pra-fa">发布时间：2020-12-03</div>
-          </dd>
-          <div class="price">¥ <strong>290</strong><span class="font12">万元</span></div>
-          <div class="clears"></div>
-        </dl>
+
       </div><!--pro-left/-->
 
       <div class="clears"></div>
       <ul class="pages">
-        <!--<li>
-            <a href="#">首页</a>
-        </li>-->
         <li>
-          <a href="#">上一页</a>
+          <a href="javascript:;" @click="fetchData(page.prePage)" v-if="page.hasPreviousPage">上一页</a>
         </li>
-        <li>
-          <a href="#">1</a>
-        </li>
-        <li class="page_active">
-          <a href="#">2</a>
+        <li v-for="item in page.navigatepageNums" :class="item==page.pageNum ? 'page_active' : ''">
+          <a href="javascript:;" @click="fetchData(item)">{{ item }}</a>
         </li>
         <li>
-          <a href="#">3</a>
+          <a href="javascript:;" @click="fetchData(page.nextPage)" v-if="page.hasNextPage">下一页</a>
         </li>
-        <li>
-          <a href="#">4</a>
-        </li>
-        <li>
-          <a href="#">5</a>
-        </li>
-        <li>
-          <span>...</span>
-        </li>
-        <li>
-          <a href="#">999</a>
-        </li>
-        <li>
-          <a href="#">下一页</a>
-        </li>
-        <!--<li>
-            <a href="#">尾页</a>
-        </li>-->
       </ul>
     </div><!--width1190/-->
   </div><!--content/-->
@@ -255,14 +180,64 @@
       buildStructureList: [],
       directionList: [],
       decorationList: [],
-      houseUseList: []
+      houseUseList: [],
+      //接口返回的分页数据，在此声明
+      page: {
+        list: [],
+        pageNum: 1,
+        pageSize: 2, //方便测试分页
+        pages: 1,
+        navigatepageNums: [1,2,3,4],
+        prePage: 0,
+        nextPage: 0,
+        hasPreviousPage: false,
+        hasNextPage: false
+      },
+
+      houseQueryVo: {
+        areaId: '',
+        plateId: '',
+        houseTypeId: '',
+        floorId: '',
+        buildStructureId: '',
+        directionId: '',
+        decorationId: '',
+        houseUseId: '',
+
+        defaultSort: 1,
+        priceSort: null,
+        timeSort: null,
+      },
     },
 
     created () {
       this.fetchDictData()
+      this.fetchData(1);
     },
 
     methods: {
+      searchArea(id){
+        this.houseQueryVo.areaId = id;
+        this.houseQueryVo.plateId = '';
+        this.fetchData(1);
+        if(id==''){
+          this.plateList = []
+          return
+        }
+        var that = this
+        axios.get('/dict/findListByParentId/'+id).then(function (response) {
+          that.plateList = response.data.data
+        });
+      },
+      fetchData(pageNum = 1) {
+        this.page.pageNum = pageNum
+        if(pageNum < 1) pageNum = 1
+
+        var that = this
+        axios.post('/house/list/'+pageNum+'/'+this.page.pageSize, this.houseQueryVo).then(function (response) {
+          that.page = response.data.data
+        });
+      },
       fetchDictData(){
 
         axios.get('/dict/findListByDictCode/beijing').then(response=> {

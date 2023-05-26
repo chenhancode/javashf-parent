@@ -25,4 +25,13 @@ public class DictController {
         List<Dict> list = dictService.findListByDictCode(dictCode);
         return Result.ok(list);
     }
+
+//    '/dict/findListByParentId/'+id
+    @RequestMapping("/findListByParentId/{parenId}")
+    public Result<List<Dict>> findListByParentId(@PathVariable Long parenId){
+        List<Dict> list = dictService.findListByParentId(parenId);
+        return Result.ok(list);
+    }
+
+
 }

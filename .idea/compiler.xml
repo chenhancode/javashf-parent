@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common-util" />
         <module name="web-front" />
+        <module name="service-user" />
         <module name="model" />
         <module name="web-admin" />
         <module name="service-api" />
