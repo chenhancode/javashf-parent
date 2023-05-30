@@ -96,8 +96,13 @@ concat : 表示连接函数
         </where>
         order by id desc
     </select>
-
-
+    <select id="getByUserName" resultType="com.atguigu.entity.Admin">
+        select *
+        from acl_admin
+        where
+            username = #{username}
+          and is_deleted = 0
+    </select>
 
 
 </mapper>

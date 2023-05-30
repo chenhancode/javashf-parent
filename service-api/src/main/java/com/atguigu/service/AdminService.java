@@ -4,4 +4,7 @@ import com.atguigu.base.BaseService;
 import com.atguigu.entity.Admin;
 
 public interface AdminService extends BaseService<Admin> {
+
+    Admin getByUserName(String username);
+
 }

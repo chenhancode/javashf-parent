@@ -9,6 +9,8 @@ import com.atguigu.service.RoleService;
 import com.atguigu.util.QiniuUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,25 +43,27 @@ public class AdminController extends BaseController {
 
 
     @RequestMapping("/assignRole")
-    public String assignRole(Long adminId,Long[] roleIds){
-        roleService.saveUserRoleRealtionShip(adminId,roleIds);
+    public String assignRole(Long adminId, Long[] roleIds) {
+        roleService.saveUserRoleRealtionShip(adminId, roleIds);
         return PAGE_SUCCESS;
     }
 
-//    /admin/assignShow/'+id,
-@RequestMapping("/assignShow/{adminId}")
-public String assignShow(@PathVariable Long adminId,ModelMap modelMap){
-    Map<String,Object> roleMap = roleService.findRoleByAdminId(adminId);
-    modelMap.addAllAttributes(roleMap);
-    modelMap.addAttribute("adminId",adminId);
-    return PAGE_ASSGIN_SHOW;
-}
+    //    /admin/assignShow/'+id,
+    @PreAuthorize("hasAuthority('admin.assgin')")
+    @RequestMapping("/assignShow/{adminId}")
+    public String assignShow(@PathVariable Long adminId, ModelMap modelMap) {
+        Map<String, Object> roleMap = roleService.findRoleByAdminId(adminId);
+        modelMap.addAllAttributes(roleMap);
+        modelMap.addAttribute("adminId", adminId);
+        return PAGE_ASSGIN_SHOW;
+    }
+
     @RequestMapping("/upload/{id}")
-    public String upload(@PathVariable Long id, @RequestParam("file")MultipartFile file) throws IOException {
+    public String upload(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
         // uuid
         String newFileName = UUID.randomUUID().toString();
         // 一张张上传
-        QiniuUtils.upload2Qiniu(file.getBytes(),newFileName);
+        QiniuUtils.upload2Qiniu(file.getBytes(), newFileName);
         // 拼接图片地址
         String url = "http://rv7cilgg1.hb-bkt.clouddn.com/" + newFileName;
 
@@ -71,22 +75,22 @@ public String assignShow(@PathVariable Long adminId,ModelMap modelMap){
     }
 
     @RequestMapping("/uploadShow/{id}")
-    public String uploadShow(@PathVariable Long id,ModelMap modelMap){
-        modelMap.addAttribute("id",id);
+    public String uploadShow(@PathVariable Long id, ModelMap modelMap) {
+        modelMap.addAttribute("id", id);
         return PAGE_UPLOED_SHOW;
     }
 
-//    opt.confirm('/admin/delete/'+id);
+    //    opt.confirm('/admin/delete/'+id);
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         adminService.delete(id);
         return LIST_ACTION;
     }
 
-//    th:action="@{/admin/update}"
+    //    th:action="@{/admin/update}"
     // 更新数据
     @RequestMapping("/update")
-    public String update(Admin admin){
+    public String update(Admin admin) {
         adminService.update(admin);
         return PAGE_SUCCESS;
     }
@@ -94,40 +98,40 @@ public String assignShow(@PathVariable Long adminId,ModelMap modelMap){
     //opt.openWin('/admin/edit/' + id,'修改',580,430);
     // 回显数据
     @RequestMapping("/edit/{id}")
-    public String edit(@PathVariable Long id,ModelMap modelMap){
+    public String edit(@PathVariable Long id, ModelMap modelMap) {
         Admin admin = adminService.getById(id);
-        modelMap.addAttribute("admin",admin);
+        modelMap.addAttribute("admin", admin);
         return PAGE_EDIT;
     }
 
 
-
-//    th:action="@{/admin/save}"
-   // 保存数据
+    //    th:action="@{/admin/save}"
+    // 保存数据
+    @PreAuthorize("hasAuthority('admin.create2')")
     @RequestMapping("/save")
-    public String save(Admin admin){
+    public String save(Admin admin) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        admin.setPassword(encoder.encode(admin.getPassword()));
         admin.setHeadUrl("https://hbimg.huaban.com/97434b6be4581d4a7ca950ba196350798f2182e2b913-VgRxn1_fw658");
         adminService.insert(admin);
         return PAGE_SUCCESS;
     }
 
 
-
-
-//    opt.openWin('/admin/create','新增',630,430) 展示页面
+    //    opt.openWin('/admin/create','新增',630,430) 展示页面
     @RequestMapping("/create")
-    public String create(){
+    public String create() {
         return PAGE_CREATE;
     }
 
 
-     // 拷贝到数据库里面，默认头像：http://139.198.127.41:9000/sph/20230505/default_handsome.jpg
+    // 拷贝到数据库里面，默认头像：http://139.198.127.41:9000/sph/20230505/default_handsome.jpg
     @RequestMapping
-    public String index(HttpServletRequest request, ModelMap modelMap){
+    public String index(HttpServletRequest request, ModelMap modelMap) {
         Map<String, Object> filters = getFilters(request);
         PageInfo<Admin> page = adminService.findPage(filters);
-        modelMap.addAttribute("page",page);
-        modelMap.addAttribute("filters",filters);
+        modelMap.addAttribute("page", page);
+        modelMap.addAttribute("filters", filters);
         return PAGE_INDEX;
 
     }

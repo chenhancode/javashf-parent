@@ -3,8 +3,11 @@ C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\c
 C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\IndexController.java
 C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\HouseController.java
 C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\AdminController.java
-C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\HouseImageController.java
 C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\HouseBrokerController.java
+C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\config\WebSecurityConfig.java
+C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\config\CustomAccessDeineHandler.java
+C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\config\UserDetailsServiceImpl.java
+C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\HouseImageController.java
 C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\PermissionController.java
 C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\RoleController.java
 C:\Users\25297\Desktop\code\shf-parent\web\web-admin\src\main\java\com\atguigu\controller\CommunityController.java

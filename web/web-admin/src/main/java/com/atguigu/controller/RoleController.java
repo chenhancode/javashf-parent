@@ -7,6 +7,7 @@ import com.atguigu.service.PermissonService;
 import com.atguigu.service.RoleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -31,25 +32,28 @@ public class RoleController extends BaseController {
     @Reference
     private PermissonService permissonService;
 
+    @PreAuthorize("hasAuthority('role.assgin')")
     @PostMapping("/assignPermission")
-    public String assignPermission(Long roleId,Long[] permissionIds){
-        permissonService.saveRolePermissionRealtionShip(roleId,permissionIds);
+    public String assignPermission(Long roleId, Long[] permissionIds) {
+        permissonService.saveRolePermissionRealtionShip(roleId, permissionIds);
         return PAGE_SUCCESS;
     }
 
+    @PreAuthorize("hasAuthority('role.assgin')")
     @GetMapping("/assignShow/{roleId}")
-    public String assignShow(ModelMap modelMap,@PathVariable Long roleId){
-        System.out.println(roleId+"roleId");
-        List<Map<String,Object>> zNodes = permissonService.findPermissionByRoleId(roleId);
-        modelMap.addAttribute("zNodes",zNodes);
-        modelMap.addAttribute("roleId",roleId);
+    public String assignShow(ModelMap modelMap, @PathVariable Long roleId) {
+        System.out.println(roleId + "roleId");
+        List<Map<String, Object>> zNodes = permissonService.findPermissionByRoleId(roleId);
+        modelMap.addAttribute("zNodes", zNodes);
+        modelMap.addAttribute("roleId", roleId);
         return PAGE_ASSGIN_SHOW;
     }
 
 
-//     opt.confirm('/role/delete/'+id);
+    //     opt.confirm('/role/delete/'+id);
+    @PreAuthorize("hasAuthority('role.delete')")
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         roleService.delete(id);
         // 删除成功,刷新页面
         return LIST_ACTION;
@@ -59,70 +63,74 @@ public class RoleController extends BaseController {
      * th:action="@{/role/update}"
      * 更新数据
      */
+    @PreAuthorize("hasAuthority('role.edit')")
     @RequestMapping("/update")
-    public String update(Role role){
+    public String update(Role role) {
         roleService.update(role);
         return "common/successPage";
     }
-
-
 
 
     /**
      * 回显数据
      */
 //     opt.openWin('/role/edit/' + id,'修改',580,430);
+    @PreAuthorize("hasAuthority('role.edit')")
     @RequestMapping("/edit/{id}")
-    public String edit(@PathVariable Long id,ModelMap modelMap){
+    public String edit(@PathVariable Long id, ModelMap modelMap) {
         // 根据id，查询角色对象
         Role role = roleService.getById(id);
-        modelMap.addAttribute("role",role);
+        modelMap.addAttribute("role", role);
         return PAGE_EDIT;
 
 
     }
 
 
-
-
 //    th:action="@{/role/save}"
+
     /**
      * 保存数据
+     *
      * @PostMapping : 只能接收post请求 ，有一个限制
      * @RequestMapping ：可以接收所有的请求 ，没有限制
      */
+    @PreAuthorize("hasAuthority('role.create2')")
     @PostMapping("/save")
-    public String save(Role role){
+    public String save(Role role) {
         roleService.insert(role);
         return "common/successPage";
     }
-
 
 
 //    opt.openWin("/role/create","新增",580,430);
 
     /**
      * 展示页面
+     *
      * @return
      */
+    @PreAuthorize("hasAuthority('role.create')")
     @RequestMapping("/create")
-    public String create(){
+    public String create() {
         return PAGE_CREATE;
     }
 
 
     /**
      * 分页必须获取  pageNum 和 pageSize
+     *
      * @param modelMap
      * @return
      */
+    @PreAuthorize("hasAuthority('role.show')")
     @RequestMapping
-    public String index(ModelMap modelMap, HttpServletRequest request){
+    public String index(ModelMap modelMap, HttpServletRequest request) {
 
-        Map<String,Object> filters = getFilters(request);
+        Map<String, Object> filters = getFilters(request);
         PageInfo<Role> pageInfo = roleService.findPage(filters);
-        modelMap.addAttribute("filters",filters);
-        modelMap.addAttribute("page",pageInfo);
+        modelMap.addAttribute("filters", filters);
+        modelMap.addAttribute("page", pageInfo);
         return PAGE_INDEX;
     }
 

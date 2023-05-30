@@ -22,4 +22,9 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     protected BaseDao<Admin> getEntityDao() {
         return adminDao;
     }
+
+    @Override
+    public Admin getByUserName(String username) {
+        return adminDao.getByUserName(username);
+    }
 }

@@ -57,7 +57,8 @@
 参数可以写，也可以不写
 -->
     <insert id="insert">
-        insert into acl_role(role_name,    role_code,    description) values (#{roleName},     #{roleCode},     #{description})
+        insert into acl_role(role_name, role_code, description)
+        values (#{roleName}, #{roleCode}, #{description})
     </insert>
 
 

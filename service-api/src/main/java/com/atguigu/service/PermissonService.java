@@ -16,4 +16,5 @@ public interface PermissonService extends BaseService<Permission> {
 
     List<Permission> findAllMenu();
 
+    List<String> findCodeListByAdminId(Long id);
 }
