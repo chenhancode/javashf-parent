@@ -56,6 +56,7 @@ public class HouseController extends BaseController {
         modelMap.addAttribute("houseBrokerList",houseBrokerService.findListByHouseId(id));
         modelMap.addAttribute("houseUserList",houseUserService.findListByHouseId(id));
         return PAGE_SHOW;
+
     }
 
 

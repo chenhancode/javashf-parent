@@ -16,7 +16,15 @@ public class AdminRole extends BaseEntity {
 	public Long getRoleId() {
 		return this.roleId;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "AdminRole{" +
+				"roleId=" + roleId +
+				", adminId=" + adminId +
+				'}';
+	}
+
 	public void setAdminId(Long value) {
 		this.adminId = value;
 	}

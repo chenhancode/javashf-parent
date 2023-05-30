@@ -5,6 +5,7 @@ import com.atguigu.base.BaseController;
 import com.atguigu.entity.Admin;
 import com.atguigu.entity.HouseImage;
 import com.atguigu.service.AdminService;
+import com.atguigu.service.RoleService;
 import com.atguigu.util.QiniuUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +24,36 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/admin")
 public class AdminController extends BaseController {
-
-
     private final static String LIST_ACTION = "redirect:/admin";
-
     private final static String PAGE_INDEX = "admin/index";
     private final static String PAGE_CREATE = "admin/create";
     private final static String PAGE_EDIT = "admin/edit";
     private final static String PAGE_SUCCESS = "common/successPage";
-
     private final static String PAGE_UPLOED_SHOW = "admin/upload";
+    private final static String PAGE_ASSGIN_SHOW = "admin/assginShow";
+
 
     @Reference
     private AdminService adminService;
 
+    @Reference
+    private RoleService roleService;
+
+
+    @RequestMapping("/assignRole")
+    public String assignRole(Long adminId,Long[] roleIds){
+        roleService.saveUserRoleRealtionShip(adminId,roleIds);
+        return PAGE_SUCCESS;
+    }
+
+//    /admin/assignShow/'+id,
+@RequestMapping("/assignShow/{adminId}")
+public String assignShow(@PathVariable Long adminId,ModelMap modelMap){
+    Map<String,Object> roleMap = roleService.findRoleByAdminId(adminId);
+    modelMap.addAllAttributes(roleMap);
+    modelMap.addAttribute("adminId",adminId);
+    return PAGE_ASSGIN_SHOW;
+}
     @RequestMapping("/upload/{id}")
     public String upload(@PathVariable Long id, @RequestParam("file")MultipartFile file) throws IOException {
         // uuid

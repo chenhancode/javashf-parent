@@ -3,6 +3,7 @@ package com.atguigu.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.BaseController;
 import com.atguigu.entity.Role;
+import com.atguigu.service.PermissonService;
 import com.atguigu.service.RoleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,13 +23,28 @@ public class RoleController extends BaseController {
     private final static String PAGE_CREATE = "role/create";
     private final static String PAGE_EDIT = "role/edit";
     private final static String LIST_ACTION = "redirect:/role";
-
+    private final static String PAGE_ASSGIN_SHOW = "role/assginShow";
+    private final static String PAGE_SUCCESS = "common/successPage";
     @Reference
     private RoleService roleService;
 
+    @Reference
+    private PermissonService permissonService;
 
+    @PostMapping("/assignPermission")
+    public String assignPermission(Long roleId,Long[] permissionIds){
+        permissonService.saveRolePermissionRealtionShip(roleId,permissionIds);
+        return PAGE_SUCCESS;
+    }
 
-
+    @GetMapping("/assignShow/{roleId}")
+    public String assignShow(ModelMap modelMap,@PathVariable Long roleId){
+        System.out.println(roleId+"roleId");
+        List<Map<String,Object>> zNodes = permissonService.findPermissionByRoleId(roleId);
+        modelMap.addAttribute("zNodes",zNodes);
+        modelMap.addAttribute("roleId",roleId);
+        return PAGE_ASSGIN_SHOW;
+    }
 
 
 //     opt.confirm('/role/delete/'+id);

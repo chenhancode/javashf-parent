@@ -33,7 +33,6 @@ public class UserInfoController {
 
     @RequestMapping("/register")
     public Result register(@RequestBody RegisterVo registerVo,HttpServletRequest request){
-        System.out.println("----------进入-------");
         String nickName = registerVo.getNickName();
         String phone = registerVo.getPhone();
         String password = registerVo.getPassword();
